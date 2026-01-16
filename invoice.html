@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagle Traders Invoice #{sale_id}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Noto Nastaliq Urdu';
+            src: url('fonts/NotoNastaliqUrdu-VariableFont_wght.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #1976d2;
+            border-radius: 8px;
+        }
+
+        .header {
+            background-color: #e3f2fd;
+            border-bottom: 2px solid #1976d2;
+            padding: 15px 10px 10px 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .header table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .header td {
+            vertical-align: top;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+
+        .company-info {
+            text-align: center;
+        }
+
+        .company-text {
+            text-align: center;
+        }
+
+        .invoice-details {
+            text-align: right;
+        }
+
+        .company-info h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .company-info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .invoice-details {
+            text-align: right;
+        }
+
+        .invoice-details h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .invoice-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .bill-to {
+            margin-bottom: 20px;
+        }
+
+        .bill-to h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .bill-to p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            border: 1px solid #333;
+        }
+
+        td {
+            border: 1px solid #333;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .totals {
+            width: 100%;
+            background-color: #fff3e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 2px solid #ff9800;
+        }
+
+        .totals table {
+            width: 100%;
+        }
+
+        .terms {
+            margin-bottom: 20px;
+        }
+
+        .terms h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .terms ol {
+            margin: 0 0 10px 0;
+            padding-left: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .urdu-terms {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            direction: rtl;
+            text-align: right;
+            font-size: 12px;
+        }
+
+        .urdu-terms p {
+            margin: 2px 0;
+        }
+
+        .signatures {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .signature-line {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .signature-line span {
+            display: inline-block;
+            width: 45%;
+            text-align: left;
+        }
+
+        .signature-line span:last-child {
+            text-align: right;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .thank-you {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 1mm;
+            }
+
+            body {
+                background-color: white;
+                padding: 0;
+                font-size: 6px;
+            }
+
+            .invoice-container {
+                box-shadow: none;
+                padding: 1px;
+                max-width: none;
+                page-break-inside: avoid;
+            }
+
+            .header {
+                padding-bottom: 1px;
+                margin-bottom: 1px;
+            }
+
+            .logo {
+                width: 25px;
+            }
+
+            .company-info h1 {
+                font-size: 10px;
+            }
+
+            .invoice-details h2 {
+                font-size: 8px;
+            }
+
+            table {
+                margin-bottom: 1px;
+                line-height: 0.7;
+            }
+
+            th,
+            td {
+                padding: 1px;
+                font-size: 6px;
+            }
+
+            .bill-to {
+                margin-bottom: 1px;
+            }
+
+            .bill-to h3 {
+                font-size: 8px;
+                margin-bottom: 2px;
+            }
+
+            .bill-to p {
+                font-size: 6px;
+                margin: 1px 0;
+            }
+
+            .terms {
+                margin-bottom: 1px;
+            }
+
+            .english-terms h4,
+            .urdu-terms h4 {
+                font-size: 8px;
+                margin-bottom: 2px;
+            }
+
+            .english-terms ol,
+            .urdu-terms p {
+                font-size: 6px;
+                margin: 1px 0;
+            }
+
+            .signatures {
+                margin-top: 1px;
+            }
+
+            .signature-line {
+                font-size: 5px;
+            }
+
+            .urdu-terms p {
+                font-size: 5px;
+                margin: 1px 0;
+            }
+
+            .totals {
+                margin-bottom: 1px;
+                margin-top: 1px;
+                border: 1px solid #ff9800;
+            }
+
+            .totals table {
+                line-height: 0.7;
+            }
+
+            .totals table th,
+            .totals table td {
+                padding: 1px;
+                font-size: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="header">
+            <table>
+                <tr>
+                    <td width="20%">
+                        <img src="header.png" alt="Eagle Traders Logo" class="logo">
+                    </td>
+                    <td width="60%" class="company-info">
+                        <div class="company-text">
+                            <h1>Eagle Traders</h1>
+                            <p>Danish Colony Nowshera Road Mardan</p>
+                            <p>Phone: +92 330 - 6500009 | Email: Eagletraders009@gmail.com</p>
+                        </div>
+                    </td>
+                    <td width="20%" class="invoice-details">
+                        <h2>INVOICE</h2>
+                        <p>Invoice #: {sale_id}</p>
+                        <p>Date: {date}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Bill To -->
+        <div class="bill-to">
+            <h3>Bill To:</h3>
+            <p><strong>{buyer_name}</strong></p>
+            <p>Contact: {buyer_contact}</p>
+        </div>
+
+        <!-- Items Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th class="text-right">Qty</th>
+                    <th class="text-right">Unit Price</th>
+                    <th class="text-right">Discount</th>
+                    <th class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {items_html}
+            </tbody>
+        </table>
+
+        <!-- Totals -->
+        <div class="totals">
+            <table>
+                <tr>
+                    <td>Subtotal</td>
+                    <td class="text-right">Rs. {subtotal:.2f}</td>
+                    <td>Tax</td>
+                    <td class="text-right">Rs. {tax:.2f}</td>
+                </tr>
+                <tr>
+                    <td><strong>TOTAL</strong></td>
+                    <td class="text-right"><strong>Rs. {total:.2f}</strong></td>
+                    <td><strong>Balance Due</strong></td>
+                    <td class="text-right"><strong>Rs. {balance_due:.2f}</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Terms & Conditions -->
+        <div class="terms">
+            <h4>Terms & Conditions:</h4>
+            <ol>
+                <li>Payment due within 30 days.</li>
+                <li>Goods checked at delivery.</li>
+                <li>No liability after purchase.</li>
+            </ol>
+            <div class="urdu-terms">
+                <p>۱. واپسی ممکن ہے اگر مصنوعات میں کم از کم 30 دن باقی ہوں۔</p>
+                <p>۲. ڈیلیوری کے وقت سامان کی جانچ پڑتال کریں۔</p>
+                <p>۳. خریداری کے بعد کسی قسم کی ذمہ داری نہیں ہوگی۔</p>
+            </div>
+        </div>
+
+        <!-- Signatures -->
+        <div class="signatures">
+            <div class="signature-line">
+                <span>Authorized Signature: ____________________</span>
+                <span>Date: {date}</span>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>
